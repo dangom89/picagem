@@ -65,6 +65,19 @@ app.get('/', (req, res) => {
     res.send('Hello World! ' + user)
 })
 
+app.get('/notify', async (req, res) => {
+    const tipoDePicagem = "Teste"
+    try {
+        const response = await axios.post(urlNotif, `Picagem de ${tipoDePicagem}`);
+        console.log(`[${new Date().toISOString()}}] [${tipoDePicagem}] HTTP request to NTFY successful.`);
+        res.send(`Success: Picagem de ${tipoDePicagem}` + user)
+    } catch (error) {
+        console.log(`[${new Date().toISOString()}}] [${tipoDePicagem}] Error making HTTP request to NTFY: ${error.message}`);
+        res.send(`Error: Picagem de ${tipoDePicagem}` + user)
+    }
+    
+})
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
