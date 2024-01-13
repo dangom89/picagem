@@ -52,10 +52,10 @@ const callUrlWithRandomDelay = async (tipoDePicagem) => {
 const workingDaysCronIn = '*/1 * * * *'; // Every 1 minutes
 const workingDaysCronOut = '*/1 * * * *'; // Every 1 minutes
 
-const jobIn = schedule.scheduleJob(workingDaysCronIn, () => {
+schedule.scheduleJob(workingDaysCronIn, () => {
     callUrlWithRandomDelay("Entrada");
 });
-const jobOut = schedule.scheduleJob(workingDaysCronOut, () => {
+schedule.scheduleJob(workingDaysCronOut, () => {
     callUrlWithRandomDelay("Saída");
 });
 
@@ -66,15 +66,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/notify', async (req, res) => {
-    const tipoDePicagem = "Teste"
-    try {
-        const response = await axios.post(urlNotif, `Picagem de ${tipoDePicagem}`);
-        console.log(`[${new Date().toISOString()}}] [${tipoDePicagem}] HTTP request to NTFY successful.`);
-        res.send(`Success: Picagem de ${tipoDePicagem}` + user)
-    } catch (error) {
-        console.log(`[${new Date().toISOString()}}] [${tipoDePicagem}] Error making HTTP request to NTFY: ${error.message}`);
-        res.send(`Error: Picagem de ${tipoDePicagem}` + user)
-    }
+    callUrlWithRandomDelay("Saída");
     
 })
 
