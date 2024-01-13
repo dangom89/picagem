@@ -1,4 +1,11 @@
+import schedule from 'node-schedule';
 import axios  from 'axios';
+import express  from 'express';
+
+const app = express()
+const port = 3000;
+
+const startupTime = new Date();
 
 //URLs for the services
 const urlPica = process.env.PICAGEM_URL; // Replace with your actual API endpoint
@@ -36,6 +43,31 @@ const callUrlWithRandomDelay = async (tipoDePicagem) => {
     //}, randomDelay * 60 * 1000); // Convert minutes to milliseconds
 };
 
-callUrlWithRandomDelay("Saída");
+// Schedule tasks for each working day at the specified times
+//const workingDaysCronIn = '55 7,12 * * 1-5'; // Monday to Friday at 7:55 and 12:55
+//const workingDaysCronOut = '55 11,16 * * 1-5'; // Monday to Friday at 11:55 and 16:55
+
+const workingDaysCronIn = '*/1 * * * *'; // Every 1 minutes
+const workingDaysCronOut = '*/1 * * * *'; // Every 1 minutes
+
+schedule.scheduleJob(workingDaysCronIn, () => {
+    callUrlWithRandomDelay("Entrada");
+});
+schedule.scheduleJob(workingDaysCronOut, () => {
+    callUrlWithRandomDelay("Saída");
+});
 
 console.log('Scheduled tasks for every working day at 7:55, 11:55, 12:55, and 16:55 with random [0-10] minute delays.');
+
+app.get('/', (req, res) => {
+    res.send('Hello World! ' + startupTime.toISOString())
+})
+
+app.get('/notify', async (req, res) => {
+    await callUrlWithRandomDelay("Saída");
+    res.send('Ja Esta')
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})

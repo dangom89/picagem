@@ -11,15 +11,5 @@
       "src":"/(.*)",
       "dest":"/"
     }
-  ],
-  "crons": [
-    {
-      "path": "/in",
-      "schedule": "*/1 * * * *"
-    },
-    {
-      "path": "/out",
-      "schedule": "*/2 * * * *"
-    }
   ]
 }
