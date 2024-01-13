@@ -1,11 +1,8 @@
-import schedule from 'node-schedule';
-import axios  from 'axios';
-import express  from 'express';
+const schedule = require('node-schedule');
+const axios = require('axios');
+const express = require('express')
 
 const app = express()
-const port = 3000;
-
-const startupTime = new Date();
 
 //URLs for the services
 const urlPica = process.env.PICAGEM_URL; // Replace with your actual API endpoint
@@ -60,14 +57,11 @@ schedule.scheduleJob(workingDaysCronOut, () => {
 console.log('Scheduled tasks for every working day at 7:55, 11:55, 12:55, and 16:55 with random [0-10] minute delays.');
 
 app.get('/', (req, res) => {
-    res.send('Hello World! ' + startupTime.toISOString())
+    console.log("Ping")
+    res.send('Hello World!')
 })
 
-app.get('/notify', async (req, res) => {
-    await callUrlWithRandomDelay("Saída");
-    res.send('Ja Esta')
-})
-
+const port = 3000;
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`Picagem listening on port ${port}`)
 })
