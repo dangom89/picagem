@@ -92,8 +92,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/notify', async (req, res) => {
-    callUrlWithRandomDelay("Saída");
-    
+    await callUrlWithRandomDelay("Saída");
+    res.send('Ja Esta')
 })
 
 app.listen(port, () => {
