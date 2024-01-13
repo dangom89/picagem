@@ -2,12 +2,13 @@
 //const axios = require('axios');
 //const express = require('express')
 
-import schedule from 'node-schedule';
+//import schedule from 'node-schedule';
 import axios  from 'axios';
-//import express  from 'express';
+import express  from 'express';
+import { CronJob } from 'cron';
 
-//const app = express()
-//const port = 3000
+const app = express()
+const port = 3000
 
 //URLs for the services
 const urlPica = process.env.PICAGEM_URL; // Replace with your actual API endpoint
@@ -52,24 +53,47 @@ const callUrlWithRandomDelay = async (tipoDePicagem) => {
 const workingDaysCronIn = '*/1 * * * *'; // Every 1 minutes
 const workingDaysCronOut = '*/1 * * * *'; // Every 1 minutes
 
-schedule.scheduleJob(workingDaysCronIn, async () => {
-    await callUrlWithRandomDelay("Entrada");
+/*schedule.scheduleJob(workingDaysCronIn, () => {
+    callUrlWithRandomDelay("Entrada");
 });
-schedule.scheduleJob(workingDaysCronOut, async () => {
-    await callUrlWithRandomDelay("Saída");
-});
+schedule.scheduleJob(workingDaysCronOut, () => {
+    callUrlWithRandomDelay("Saída");
+});*/
+
+const jobIn = new CronJob(
+	'*/1 * * * *', // cronTime
+    () => {
+        callUrlWithRandomDelay("Entrada")
+    }, // onTick
+	null, // onComplete
+	true, // start
+	'America/Los_Angeles' // timeZone
+);
+
+const jobOut = new CronJob(
+	'*/1 * * * *', // cronTime
+    () => {
+        callUrlWithRandomDelay("Saída")
+    }, // onTick
+	null, // onComplete
+	true, // start
+	'America/Los_Angeles' // timeZone
+);
+
+jobIn.start();
+jobOut.start();
 
 console.log('Scheduled tasks for every working day at 7:55, 11:55, 12:55, and 16:55 with random [0-10] minute delays.');
 
-// app.get('/', (req, res) => {
-//     res.send('Hello World! ' + user)
-// })
+app.get('/', (req, res) => {
+    res.send('Hello World! ' + user)
+})
 
-// app.get('/notify', async (req, res) => {
-//     callUrlWithRandomDelay("Saída");
+app.get('/notify', async (req, res) => {
+    callUrlWithRandomDelay("Saída");
     
-// })
+})
 
-// app.listen(port, () => {
-//     console.log(`Example app listening on port ${port}`)
-// })
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
