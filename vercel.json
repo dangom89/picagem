@@ -15,7 +15,7 @@
   "crons": [
     {
       "path": "/in",
-      "schedule": "*/10 * * * * *"
+      "schedule": "*/8 * * * * *"
     },
     {
       "path": "/out",
