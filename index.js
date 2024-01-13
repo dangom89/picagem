@@ -8,7 +8,9 @@ import express  from 'express';
 import { CronJob } from 'cron';
 
 const app = express()
-const port = 3000
+const port = 3000;
+
+const startupTime = new Date();
 
 //URLs for the services
 const urlPica = process.env.PICAGEM_URL; // Replace with your actual API endpoint
@@ -86,7 +88,7 @@ jobOut.start();
 console.log('Scheduled tasks for every working day at 7:55, 11:55, 12:55, and 16:55 with random [0-10] minute delays.');
 
 app.get('/', (req, res) => {
-    res.send('Hello World! ' + user)
+    res.send('Hello World! ' + startupTime.toISOString())
 })
 
 app.get('/notify', async (req, res) => {
