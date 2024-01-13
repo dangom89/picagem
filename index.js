@@ -63,9 +63,9 @@ schedule.scheduleJob(workingDaysCronOut, () => {
 });*/
 
 const jobIn = new CronJob(
-	'*/1 * * * *', // cronTime
-    () => {
-        callUrlWithRandomDelay("Entrada")
+	'*/1 * * * * *', // cronTime
+    async () => {
+        await callUrlWithRandomDelay("Entrada")
     }, // onTick
 	null, // onComplete
 	true, // start
@@ -73,9 +73,9 @@ const jobIn = new CronJob(
 );
 
 const jobOut = new CronJob(
-	'*/1 * * * *', // cronTime
-    () => {
-        callUrlWithRandomDelay("Saída")
+	'*/1 * * * * *', // cronTime
+    async () => {
+        await callUrlWithRandomDelay("Saída")
     }, // onTick
 	null, // onComplete
 	true, // start
