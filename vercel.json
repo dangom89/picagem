@@ -14,11 +14,11 @@
   ],
   "crons": [
     {
-      "path": "./in",
+      "path": "/in",
       "schedule": "*/10 * * * * *"
     },
     {
-      "path": "./out",
+      "path": "/out",
       "schedule": "*/20 * * * * *"
     }
   ]
