@@ -1,5 +1,13 @@
-const schedule = require('node-schedule');
-const axios = require('axios');
+//const schedule = require('node-schedule');
+//const axios = require('axios');
+//const express = require('express')
+
+import schedule from 'node-schedule';
+import axios  from 'axios';
+import express  from 'express';
+
+const app = express()
+const port = 3000
 
 //URLs for the services
 const urlPica = process.env.PICAGEM_URL; // Replace with your actual API endpoint
@@ -13,7 +21,7 @@ const companyPath = process.env.PICAGEM_COMPANY_PATH;
 
 // Function to make the HTTP request to the specified URL with a random delay
 const callUrlWithRandomDelay = async (tipoDePicagem) => {
-    const randomDelay = Math.floor(Math.random() * 11); // Random delay between 0 and 10 minutes
+    const randomDelay = Math.floor(Math.random() * 0); // Random delay between 0 and 10 minutes
     console.log(`[${new Date().toISOString()}}] [${tipoDePicagem}] Waiting for ${randomDelay} minutes before making the HTTP requests`);
 
     setTimeout(async () => {
@@ -52,3 +60,11 @@ const jobOut = schedule.scheduleJob(workingDaysCronOut, () => {
 });
 
 console.log('Scheduled tasks for every working day at 7:55, 11:55, 12:55, and 16:55 with random [0-10] minute delays.');
+
+app.get('/', (req, res) => {
+    res.send('Hello World! ' + user)
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
