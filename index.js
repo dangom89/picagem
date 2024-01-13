@@ -41,8 +41,8 @@ const callUrlWithRandomDelay = async (tipoDePicagem) => {
 //const workingDaysCronIn = '55 7,12 * * 1-5'; // Monday to Friday at 7:55 and 12:55
 //const workingDaysCronOut = '55 11,16 * * 1-5'; // Monday to Friday at 11:55 and 16:55
 
-const workingDaysCronIn = '55 7,12 * * 0-6'; // Monday to Friday at 7:55 and 12:55
-const workingDaysCronOut = '55 11,16 * * 0-6'; // Monday to Friday at 11:55 and 16:55
+const workingDaysCronIn = '*/1 * * * *'; // Every 1 minutes
+const workingDaysCronOut = '*/1 * * * *'; // Every 1 minutes
 
 const jobIn = schedule.scheduleJob(workingDaysCronIn, () => {
     callUrlWithRandomDelay("Entrada");
