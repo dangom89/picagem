@@ -24,7 +24,7 @@ const callUrlWithRandomDelay = async (tipoDePicagem) => {
     const randomDelay = Math.floor(Math.random() * 0); // Random delay between 0 and 10 minutes
     console.log(`[${new Date().toISOString()}}] [${tipoDePicagem}] Waiting for ${randomDelay} minutes before making the HTTP requests`);
 
-    setTimeout(async () => {
+    //setTimeout(async () => {
 
         try {
             const bodyPica = `codigo=${user}&senha=${pass}&tipo_movimento=${encodeURIComponent(tipoDePicagem)}&lat=38.6465792&lon=-9.043968&pontocontrolo=false&pontocontroloid=0&empresa_id=${companyCode}&empresa_url=${companyPath}&is_root=false&modulo_pausas=false`
@@ -42,7 +42,7 @@ const callUrlWithRandomDelay = async (tipoDePicagem) => {
             console.log(`[${new Date().toISOString()}}] [${tipoDePicagem}] Error making HTTP request to NTFY: ${error.message}`);
         }
 
-    }, randomDelay * 60 * 1000); // Convert minutes to milliseconds
+    //}, randomDelay * 60 * 1000); // Convert minutes to milliseconds
 };
 
 // Schedule tasks for each working day at the specified times
